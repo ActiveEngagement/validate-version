@@ -1,0 +1,13 @@
+name: 'Validate Version Tag'
+description: 'Validates a version tag.'
+inputs:
+  ref_name:
+    required: true
+  branch:
+    required: true
+  tags:
+    required: false
+    default: v*
+runs:
+  using: 'node16'
+  main: 'src/index.js'
