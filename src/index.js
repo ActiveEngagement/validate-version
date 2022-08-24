@@ -1,32 +1,29 @@
 const core = require('@actions/core');
 const semver = require('semver');
-const getLastVersion = require('./last_version');
+const error = require('./error');
+const getVersions = require('./versions');
 const branchContains = require('./branch_contains');
 
 async function main() {
     try {
         const ref = core.getInput('ref_name');
-
         const version = semver.clean(ref);
 
         if(!semver.valid(version)) {
-            throw `The current version tag "${ref}" does not contain a valid Semantic Version!`;
+            error.badCurrentRef(ref);
         }
 
-        let lastVersion = await getLastVersion();
+        const allVersions = await getVersions();
+        const highestVersion = allVersions[0];
 
-        if(lastVersion !== null) {
-            lastVersion = semver.clean(lastVersion);
-        }
-
-        if(lastVersion && semver.lte(version, lastVersion)) {
-            throw `The current version "${version}" is not greater than the last version "${lastVersion}"!`;
+        if (!semver.eq(highestVersion, version)) {
+            error.nonHighest(version, highestVersion);
         }
 
         const branch = core.getInput('branch');
 
         if(! await branchContains(branch, ref)) {
-            throw `The current version tag "${ref}" must be on the "${branch}" branch!`;
+            error.badBranch(branch, ref);
         }
     }
     catch (error) {
