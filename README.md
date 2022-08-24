@@ -8,8 +8,8 @@ Since `validate-version` relies on the full Git history to validate the current 
 
 ```yaml
 - uses: actions/checkout@v3
-    with:
-        fetch-depth: 0
+  with:
+    fetch-depth: 0
 ```
 
 Now use the action in your workflow:
