@@ -34,14 +34,14 @@ That's all! Now when your workflow is triggered by a tag push, the tag will firs
 `validate-version` will now throw an error if:
 - the current version is invalid,
 - any of the version tags in the repository are invalid,
-- the current version is not greater than the last one, or
+- the current version is not greater than the previous one, or
 - the required branch does not contain the current version tag.
 
 ## Notes
 
 ### The Last Version
 
-In the context of the `validate-version` action, the "last version" refers **not** to the chronologically last version, but to the highest (per Semantic Versioning) version in the repository (aside from the current one).
+In the context of the `validate-version` action, the "previous version" refers **not** to the chronologically previous version, but to the highest (per Semantic Versioning) version in the repository (aside from the current one).
 
 This precludes a situation like the following:
 - developer pushes tag `v0.1.0`
