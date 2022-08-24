@@ -8,6 +8,11 @@ inputs:
   tags:
     required: false
     default: v*
+outputs:
+  current_version:
+    description: 'The current version.'
+  previous_version:
+    description: 'The next-highest version after the current one.'
 runs:
   using: 'node16'
   main: 'src/index.js'

@@ -25,6 +25,9 @@ async function main() {
         if(! await branchContains(branch, ref)) {
             error.badBranch(branch, ref);
         }
+
+        core.setOutput('current_version', version);
+        core.setOutput('previous_version', allVersions[1]);
     }
     catch (error) {
         core.setFailed(error);
