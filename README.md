@@ -1,5 +1,7 @@
 # validate-version
 
+[Changelog](CHANGELOG.md)
+
 This lightweight, opinionated GitHub Action ensures that your version tags are valid Semantic Versions and that the current one is greater than the previous one. It will also ensure that the current tag is a part of a specified branch.
 
 ## Getting Started
