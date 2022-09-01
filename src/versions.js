@@ -3,9 +3,10 @@ const exec = require('@actions/exec');
 const semver = require('semver');
 const error = require('./error');
 
-async function getTags(glob) {
-    let output = await exec.getExecOutput(`git tag --list "${glob}"`);
-    return output.stdout.trim().split(/\r?\n/);
+async function getTags(regex) {
+    const output = await exec.getExecOutput(`git tag --list`);
+    const all = output.stdout.trim().split(/\r?\n/);
+    return all.filter(tag => new RegExp(regex).test(tag));
 }
 
 module.exports = async function() {
