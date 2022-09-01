@@ -10,20 +10,20 @@ async function main() {
         const version = semver.clean(ref);
 
         if(!semver.valid(version)) {
-            error.badCurrentRef(ref);
+            throw error.badCurrentRef(ref);
         }
 
         const allVersions = await getVersions();
         const highestVersion = allVersions[0];
 
         if (!semver.eq(highestVersion, version)) {
-            error.nonHighest(version, highestVersion);
+            throw error.nonHighest(version, highestVersion);
         }
 
         const branch = core.getInput('branch');
 
         if(! await branchContains(branch, ref)) {
-            error.badBranch(branch, ref);
+            throw error.badBranch(branch, ref);
         }
 
         core.setOutput('current_version', version);

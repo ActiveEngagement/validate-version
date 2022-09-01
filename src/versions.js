@@ -11,14 +11,15 @@ async function getTags(glob) {
 module.exports = async function() {
     const glob = core.getInput('tags');
     const tags = await getTags(glob);
-    const versions = tags.map(function(tag) {
+    const versions = tags.flatMap(function(tag) {
         const cleaned = semver.clean(tag);
 
         if (!semver.valid(cleaned)) {
-            error.badVersionTag(tag, glob);
+            core.warning(error.badVersionTag(tag, glob));
+            return [];
         }
 
-        return cleaned;
+        return [cleaned];
     });
     versions.sort((a, b) => semver.compare(b, a));
 
