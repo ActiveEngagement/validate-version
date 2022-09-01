@@ -15,8 +15,8 @@ module.exports =
               `tag on the wrong branch.`;
     },
 
-    badVersionTag(tag, glob) {
+    badVersionTag(tag, regex) {
         throw `The repository contains the version tag "${tag}", which is not a valid Semantic Version. All tags ` +
-              `matched by the glob "${glob}" must be valid Semantic Versions.`;
+              `matched by the regular expression /${regex}/ must be valid Semantic Versions.`;
     }
 };
